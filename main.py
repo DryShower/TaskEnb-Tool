@@ -3,10 +3,20 @@ from platform import system
 from colorama import Fore
 from time import sleep
 import asyncio
+import requests
 
 # Global variables
-VERSION = '1.0.4'
+VERSION = 'v1.0.4'
 LANGUAGE = 'English'
+
+# Function to check the latest version
+async def try_to_check_version():
+    try:
+        response = requests.get("https://github.com/fairyfart/TaskEnb-Tool/releases/latest")
+        latest_version = response.url.split("/").pop()
+        return latest_version
+    except requests.exceptions.ConnectionError:
+        return None
 
 # Windows registry commands
 ENABLE_TASK_MANAGER_CMD = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 0 /f'
@@ -32,21 +42,33 @@ async def check_platform():
 
 # Function to display the main menu
 def display_menu():
+    latest_version = asyncio.run(try_to_check_version())
     clear_screen()
     os.system("color e")
     logo = """
-
     
+
             ████████  █████  ███████ ██   ██  ███    ███  █████  ███    ██  █████   ██████  ███████ ██████         
                ██    ██   ██ ██      ██  ██   ████  ████ ██   ██ ████   ██ ██   ██ ██       ██      ██   ██        
                ██    ███████ ███████ █████    ██ ████ ██ ███████ ██ ██  ██ ███████ ██   ███ █████   ██████         
                ██    ██   ██      ██ ██  ██   ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██        
                ██    ██   ██ ███████ ██   ██  ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██        
 
+               
     """
     print(logo)
     print(f"{Fore.LIGHTBLACK_EX: >98}Language: {LANGUAGE}")
     print(f"{Fore.LIGHTBLACK_EX: >98}Version: {VERSION}")
+
+    if latest_version:
+        if latest_version != VERSION:
+            print(f"{Fore.LIGHTBLACK_EX: >98}Latest: {Fore.RED}{latest_version}")
+        else:
+            print(f"{Fore.LIGHTBLACK_EX: >98}Latest: {latest_version}")
+    else:
+        print(f"{Fore.RED: >98}Latest: Unable to check.")
+        print(f"{Fore.RED: >108} (No Wifi)")
+        
     print_empty_lines()
     print(Fore.CYAN + '   [0]  Exit.')
     print(Fore.CYAN + '   [1] Enable Task Manager.')
