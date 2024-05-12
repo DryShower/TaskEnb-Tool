@@ -5,7 +5,7 @@ from time import sleep
 import asyncio
 
 # Global variables
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 LANGUAGE = 'English'
 
 # Windows registry commands
