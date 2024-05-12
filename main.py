@@ -56,6 +56,7 @@ def display_menu():
 # Function to handle user input
 def handle_input():
     req = input(Fore.YELLOW + "  Command:  ")
+    print_empty_lines()
     if req == '1':
         os.system(ENABLE_TASK_MANAGER_CMD)
         exit()
