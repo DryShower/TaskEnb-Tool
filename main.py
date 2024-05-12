@@ -1,4 +1,4 @@
-from platform import system
+from platform import system; platform = system()
 import os; os.system("color e"); os.system("title Task-Enb"); os.system("echo off")
 from colorama import Fore, Style
 from time import sleep
@@ -7,17 +7,6 @@ Enabling_code = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies
 Disable_code = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 1 /f'
 
 
-def clear():
-    os.system('cls')
-
-def space():
-    print("")
-
-
-
-clear()
-
-platform = system()
 if platform == 'Windows':
     pass
 else:
@@ -25,8 +14,13 @@ else:
     input("Press Enter to exit.")
     exit()
 
+def clear():
+    os.system('cls')
 
+def space():
+    print("")
 
+clear()
 logo = """
 
 
