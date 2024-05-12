@@ -1,14 +1,10 @@
 from platform import system
-import os
+import os; os.system("color e"); os.system("title Task-Enb"); os.system("echo off")
 from colorama import Fore, Style
 from time import sleep
 
 Enabling_code = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 0 /f'
 Disable_code = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 1 /f'
-
-os.system("color e")
-os.system("title  ")
-os.system("echo off")
 
 
 def clear():
