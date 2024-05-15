@@ -1,8 +1,9 @@
 import os
 from platform import system
-from colorama import Fore
-from time import sleep
 import asyncio
+from time import sleep
+#Third Party
+from colorama import Fore
 import requests
 
 # Global variables
