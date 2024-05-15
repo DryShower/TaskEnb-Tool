@@ -8,4 +8,9 @@ the harnessing great power of Python.
 This program handles tasks like enabling/disabling Task Manager in Windows automatically. However, the usage of this program should strictly adhere to legal and ethical boundaries. Any responsibility arising from the misuse of this program should be assumed by the user. This text is written solely to describe the functionality of the program and not to encourage its misuse or promote any illegal activities. Users are encouraged to use this program ethically and within the bounds of the law.
 
 # Download
+to run it on an cmd use this commands down Below
+```
+pip install -r requirements.txt
+python main.py
+```
 The .exe file can be downloaded located in the top right corner of the page 'Releases'
