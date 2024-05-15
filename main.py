@@ -2,7 +2,7 @@ import os
 from platform import system
 import asyncio
 from time import sleep
-#Third Party
+#Third Party Modules
 from colorama import Fore
 import requests
 
