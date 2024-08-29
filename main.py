@@ -1,13 +1,15 @@
 import os
-from platform import system
 import asyncio
-from time import sleep
-#Third Party Modules
-from colorama import Fore
 import requests
+from platform import system
+from colorama import Fore, init
+import keyboard
+
+# Initialize Colorama
+init(autoreset=True)
 
 # Global variables
-VERSION = 'v1.0.4'
+VERSION = 'v1.2.7'
 LANGUAGE = 'English'
 
 # Function to check the latest version
@@ -20,8 +22,8 @@ async def try_to_check_version():
         return None
 
 # Windows registry commands
-ENABLE_TASK_MANAGER_CMD = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 0 /f'
-DISABLE_TASK_MANAGER_CMD = 'REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 1 /f'
+ENABLE_TASK_MANAGER_CMD = 'REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 0 /f'
+DISABLE_TASK_MANAGER_CMD = 'REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 1 /f'
 
 # Function to clear the screen
 def clear_screen():
@@ -36,10 +38,18 @@ def print_empty_lines(lines=1):
 async def check_platform():
     plat = system()
     if plat != 'Windows':
-        print(' This program is written for Windows.')
+        print('This program is written for Windows.')
         print_empty_lines()
-        input("  Press Enter to exit.")
+        input("Press Enter to exit.")
         exit()
+
+def enable_taskmgr():
+    os.system(ENABLE_TASK_MANAGER_CMD)
+    print("Task Manager Enabled.")
+
+def disable_taskmgr():
+    os.system(DISABLE_TASK_MANAGER_CMD)
+    print("Task Manager Disabled.")
 
 # Function to display the main menu
 def display_menu():
@@ -47,15 +57,11 @@ def display_menu():
     clear_screen()
     os.system("color e")
     logo = """
-    
-
             ████████  █████  ███████ ██   ██  ███    ███  █████  ███    ██  █████   ██████  ███████ ██████         
                ██    ██   ██ ██      ██  ██   ████  ████ ██   ██ ████   ██ ██   ██ ██       ██      ██   ██        
                ██    ███████ ███████ █████    ██ ████ ██ ███████ ██ ██  ██ ███████ ██   ███ █████   ██████         
                ██    ██   ██      ██ ██  ██   ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██        
                ██    ██   ██ ███████ ██   ██  ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██        
-
-               
     """
     print(logo)
     print(f"{Fore.LIGHTBLACK_EX: >98}Language: {LANGUAGE}")
@@ -69,38 +75,27 @@ def display_menu():
     else:
         print(f"{Fore.RED: >98}Latest: Unable to check.")
         print(f"{Fore.RED: >108} (No Wifi)")
-        
+
     print_empty_lines()
-    print(Fore.CYAN + '   [0]  Exit.')
-    print(Fore.CYAN + '   [1] Enable Task Manager.')
-    print(Fore.CYAN + '   [2] Disable Task Manager.')
+    print(Fore.CYAN + '   [1]  Enable Task Manager.')
+    print(Fore.CYAN + '   [2]  Disable Task Manager.')
     print_empty_lines()
 
-# Function to handle user input
-def handle_input():
-    req = input(Fore.YELLOW + "  Command:  ")
-    print_empty_lines()
-    if req == '1':
-        os.system(ENABLE_TASK_MANAGER_CMD)
-        exit()
-    elif req == '2':
-        os.system(DISABLE_TASK_MANAGER_CMD)
-        exit()
-    elif req == '0':
-        exit()
-    else:
-        clear_screen()
-        print_empty_lines(2)
-        print(" There are only two options.\n  Try again.")
-        print_empty_lines()
-        sleep(1.1)
-        return
+# Function to handle key presses
+def handle_key_presses():
+    # Register hotkeys
+    keyboard.add_hotkey('1', enable_taskmgr)
+    keyboard.add_hotkey('2', disable_taskmgr)
+      # Exit the program when '0' is pressed
+
+    # Keep the program running and listening for key presses
+    keyboard.wait('esc')  # Press 'esc' to exit the program
 
 # Main function
 def main():
     asyncio.run(check_platform())
     display_menu()
-    handle_input()
+    handle_key_presses()
 
 if __name__ == "__main__":
     main()
