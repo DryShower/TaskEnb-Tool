@@ -14,4 +14,4 @@ pip install -r requirements.txt
 python main.py
 ```
 The .exe file can be downloaded at this link.
-https://github.com/DryShower/TaskEnb-Tool/releases/tag/v1.2.7
+https://github.com/DryShower/TaskEnb-Tool/releases/latest
