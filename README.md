@@ -13,4 +13,5 @@ to run it on an cmd use this commands down Below
 pip install -r requirements.txt
 python main.py
 ```
-The .exe file can be downloaded located in the top right corner of the page 'Releases'
+The .exe file can be downloaded at this link.
+https://github.com/DryShower/TaskEnb-Tool/releases/tag/v1.2.7
